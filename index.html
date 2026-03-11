@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Alexandra | NextStep Pro 2026</title>
+    <title>Alexandra | Professional Apply 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -12,12 +12,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         input, select, textarea { font-size: 16px !important; }
-        .custom-shadow { box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
-        .photo-area { transition: all 0.3s ease; }
-        .photo-area:active { transform: scale(0.98); }
+        .custom-shadow { box-shadow: 0 20px 60px rgba(0,0,0,0.07); }
     </style>
 </head>
-<body class="bg-[#f4f7fa] min-h-screen">
+<body class="bg-[#f0f4f8] min-h-screen">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -32,6 +30,7 @@
                 recruiterEmail: '',
                 motivation: '', 
                 startDate: '01.09.2026',
+                source: 'Ihr Karriereportal',
                 email: 'alexandra.orfanidou@icloud.com',
                 phone: '0176 12345678'
             });
@@ -45,6 +44,12 @@
                 city: "70435 Stuttgart" 
             };
 
+            const searchLinks = [
+                { name: "DHBW Liste", url: "https://www.stuttgart.dhbw.de/ebase", desc: "Partnerfirmen Stuttgart" },
+                { name: "Wegweiser", url: "https://www.wegweiser-duales-studium.de", desc: "BWL-Handel Fokus" },
+                { name: "Azubiyo", url: "https://www.azubiyo.de/duales-studium/stuttgart/", desc: "Stellen in S & Umgebung" }
+            ];
+
             const handleImageUpload = (e) => {
                 const file = e.target.files[0];
                 if (file) {
@@ -55,125 +60,121 @@
             };
 
             const generate = () => {
-                const date = new Date().toLocaleDateString('de-DE');
                 const isInitiative = !data.studyProgram || data.studyProgram.toLowerCase().includes('initiativ') || data.studyProgram.trim() === "";
-                
                 let greeting = data.recruiterName.trim() !== "" 
                     ? (data.salutation === 'Frau' ? `Sehr geehrte Frau ${data.recruiterName},` : `Sehr geehrter Herr ${data.recruiterName},`)
                     : "Sehr geehrte Damen und Herren,";
 
                 const subject = isInitiative 
-                    ? `Initiativbewerbung | Motivation trifft kaufmännisches Talent - ${myInfo.name}`
+                    ? `Initiativbewerbung | Kaufmännische Expertise & Motivation - ${myInfo.name}`
                     : `Bewerbung für ein Duales Studium: ${data.studyProgram} - ${myInfo.name}`;
 
                 const intro = isInitiative
-                    ? `ich verfolge die Aktivitäten von ${data.company || 'Ihrem Unternehmen'} schon seit einer Weile und bin von Ihrer Arbeitsweise beeindruckt. Da ich mich aktuell beruflich neu orientiere und meine Zukunft in einem dynamischen Umfeld wie dem Ihren sehe, bewerbe ich mich initiativ bei Ihnen.`
-                    : `ich verfolge die Entwicklung von ${data.company || 'Ihrem Unternehmen'} schon seit einer Weile mit großem Interesse. Da ich nach meinem aktuellen Weg eine neue, akademische Herausforderung suche, bei der ich Theorie und Praxis direkt miteinander verbinden kann, bewerbe ich mich bei Ihnen für ein Duales Studium im Bereich ${data.studyProgram} zum ${data.startDate}.`;
+                    ? `über ${data.source} bin ich auf Ihr Unternehmen aufmerksam geworden. Da ich meine berufliche Zukunft in einem dynamischen Umfeld sehe und meine kaufmännischen Kompetenzen gezielt einbringen möchte, bewerbe ich mich initiativ bei Ihnen.`
+                    : `mit großem Interesse habe ich auf ${data.source} gelesen, dass Sie ein Duales Studium im Bereich ${data.studyProgram} zum ${data.startDate} anbieten. Da ich Theorie und Praxis auf höchstem Niveau verbinden möchte, bewerbe ich mich hiermit bei Ihnen.`;
 
-                const coreText = `Momentan absolviere ich meine Ausbildung zur Handelsfachwirtin. Diese Zeit hat mir gezeigt, wie viel Spaß mir kaufmännische Verantwortung macht – aber auch, dass ich noch tiefer in die betriebswirtschaftlichen Hintergründe eintauchen möchte. Ich bin ein Fan davon, Dinge nicht nur zu bearbeiten, sondern sie wirklich zu verstehen und Prozesse aktiv mitzugestalten.`;
+                const coreText = `Aktuell absolviere ich meine Ausbildung zur Handelsfachwirtin. Diese Zeit hat meine Leidenschaft für betriebswirtschaftliche Prozesse gefestigt und mir gezeigt, dass ich Verantwortung übernehmen möchte. Mein Ziel ist es nun, dieses praktische Fundament durch ein wissenschaftliches Studium ab dem Herbst 2026 zu erweitern.`;
 
-                const qualities = isInitiative
-                    ? `Durch meine Ausbildung bringe ich bereits fundierte Praxiskenntnisse und eine sehr strukturierte Arbeitsweise mit. Ich lerne extrem schnell, bin absolut zuverlässig und habe keine Angst davor, im Tagesgeschäft direkt mit anzupacken. Ich suche eine Chance, meine Energie und mein kaufmännisches Vorwissen in Ihr Team einzubringen – egal ob im Bereich Administration, Projektmanagement oder im operativen Geschäft.`
-                    : `Die Kombination aus Studium und Praxis ist für mich der perfekte Weg. Ich bringe die notwendige Disziplin und Belastbarkeit mit, die dieses Modell erfordert. Zuverlässigkeit und eine schnelle Auffassungsgabe sind für mich dabei selbstverständlich.`;
+                const changeReason = `Der Wechsel von meiner aktuellen Ausbildung in ein Studium ist für mich der nächste logische Schritt. Ich möchte nicht nur "machen", sondern die Hintergründe verstehen und aktiv mitgestalten. Ich bin bereit, Vollgas zu geben und mein kaufmännisches Vorwissen direkt in Ihr Team zu transferieren.`;
 
-                const closing = `Ich freue mich riesig über die Gelegenheit, Sie in einem persönlichen Gespräch davon zu überzeugen, dass ich eine echte Bereicherung für Ihr Team bin.`;
+                const closing = `Ich freue mich sehr über die Einladung zu einem persönlichen Gespräch.`;
 
                 setOutput({
-                    header: `${myInfo.name}\n${myInfo.address} | ${myInfo.city}\n${data.email} | ${data.phone}`,
                     subject: subject,
-                    body: `${greeting}\n\n${intro}\n\n${coreText}\n\n${qualities}\n\n${data.motivation ? 'Besonders spannend finde ich an ' + data.company + ', dass ' + data.motivation + '.\n\n' : ''}${closing}\n\nMit freundlichen Grüßen\n\n${myInfo.name}`
+                    cleanBody: `${greeting}\n\n${intro}\n\n${coreText}\n\n${changeReason}\n\n${data.motivation ? 'Besonders spannend finde ich an Ihrem Haus, dass ' + data.motivation + '.\n\n' : ''}${closing}\n\nMit freundlichen Grüßen\n\n${myInfo.name}`
                 });
             };
 
             const openMailApp = () => {
                 if (!output) return;
-                const mailtoLink = `mailto:${data.recruiterEmail}?subject=${encodeURIComponent(output.subject)}&body=${encodeURIComponent(output.body)}`;
-                window.location.href = mailtoLink;
+                window.location.href = `mailto:${data.recruiterEmail}?subject=${encodeURIComponent(output.subject)}&body=${encodeURIComponent(output.cleanBody)}`;
             };
 
             return (
-                <div className="max-w-[1400px] mx-auto p-4 lg:p-8">
+                <div className="max-w-[1400px] mx-auto p-4 lg:p-10 space-y-6">
+                    
+                    {/* SEARCH LINKS */}
+                    <div className="grid grid-cols-3 gap-3 no-print">
+                        {searchLinks.map((link, i) => (
+                            <a key={i} href={link.url} target="_blank" className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center active:scale-95 transition-all">
+                                <p className="text-indigo-600 font-extrabold text-xs">{link.name}</p>
+                                <p className="text-[9px] text-slate-400 uppercase mt-1 leading-tight">{link.desc}</p>
+                            </a>
+                        ))}
+                    </div>
+
                     <div className="grid lg:grid-cols-12 gap-8">
-                        
-                        {/* INPUT BEREICH */}
+                        {/* LEFT: INPUT */}
                         <div className="lg:col-span-5 space-y-6">
                             <div className="bg-white p-8 rounded-[2.5rem] custom-shadow border border-slate-100">
-                                <h1 className="text-3xl font-black text-slate-900 mb-8 tracking-tight">
-                                    Next<span className="text-indigo-600">Step</span> Mailer
-                                </h1>
+                                <h1 className="text-3xl font-black text-slate-900 mb-6 tracking-tight">Apply<span className="text-indigo-600">Box</span></h1>
                                 
-                                <div className="space-y-5">
-                                    <div 
-                                        onClick={() => fileInputRef.current.click()}
-                                        className="photo-area h-44 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden relative group hover:border-indigo-400 transition-colors"
-                                    >
-                                        {image ? <img src={image} className="w-full h-full object-cover" /> : <div className="text-center"><div className="text-4xl mb-2">📸</div><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Foto auswählen</p></div>}
+                                <div className="space-y-4">
+                                    <div onClick={() => fileInputRef.current.click()} className="h-24 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center cursor-pointer overflow-hidden transition-all hover:border-indigo-300">
+                                        {image ? <img src={image} className="w-full h-full object-cover" /> : <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Foto</p>}
                                         <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
                                     </div>
 
-                                    <div className="grid gap-4">
-                                        <input placeholder="Firma" value={data.company} onChange={e => setData({...data, company: e.target.value})} className="w-full p-4 bg-slate-50 rounded-2xl outline-none font-bold" />
-                                        <input placeholder="E-Mail der Firma" value={data.recruiterEmail} onChange={e => setData({...data, recruiterEmail: e.target.value})} className="w-full p-4 bg-indigo-50/50 rounded-2xl outline-none text-indigo-600 font-medium placeholder:text-indigo-300 border border-indigo-100" />
-                                        <input placeholder="Studiengang (Leer lassen für Initiativ)" value={data.studyProgram} onChange={e => setData({...data, studyProgram: e.target.value})} className="w-full p-4 bg-slate-50 rounded-2xl outline-none" />
+                                    <div className="grid gap-3">
+                                        <input placeholder="Firma" value={data.company} onChange={e => setData({...data, company: e.target.value})} className="w-full p-3 bg-slate-50 rounded-xl outline-none font-bold shadow-sm" />
+                                        <input placeholder="Recruiter E-Mail" value={data.recruiterEmail} onChange={e => setData({...data, recruiterEmail: e.target.value})} className="w-full p-3 bg-indigo-50 border border-indigo-100 rounded-xl outline-none text-indigo-600 font-bold" />
+                                        <input placeholder="Studiengang" value={data.studyProgram} onChange={e => setData({...data, studyProgram: e.target.value})} className="w-full p-3 bg-slate-50 rounded-xl outline-none" />
+                                        <input placeholder="Gefunden über (z.B. DHBW-Liste, Azubiyo)" value={data.source} onChange={e => setData({...data, source: e.target.value})} className="w-full p-3 bg-slate-50 rounded-xl outline-none text-sm italic" />
                                     </div>
 
                                     <div className="flex gap-2">
-                                        <select value={data.salutation} onChange={e => setData({...data, salutation: e.target.value})} className="p-4 bg-slate-100 rounded-2xl outline-none font-bold">
+                                        <select value={data.salutation} onChange={e => setData({...data, salutation: e.target.value})} className="p-3 bg-slate-100 rounded-xl outline-none font-bold text-sm">
                                             <option value="Frau">Frau</option>
                                             <option value="Herr">Herr</option>
                                         </select>
-                                        <input placeholder="Nachname Kontakt" value={data.recruiterName} onChange={e => setData({...data, recruiterName: e.target.value})} className="flex-1 p-4 bg-slate-50 rounded-2xl outline-none" />
+                                        <input placeholder="Nachname Kontakt" value={data.recruiterName} onChange={e => setData({...data, recruiterName: e.target.value})} className="flex-1 p-3 bg-slate-50 rounded-xl outline-none text-sm" />
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <select value={data.startDate} onChange={e => setData({...data, startDate: e.target.value})} className="p-4 bg-slate-50 rounded-2xl outline-none font-bold text-sm">
-                                            <option value="01.09.2026">Start 01.09.</option>
-                                            <option value="01.10.2026">Start 01.10.</option>
-                                        </select>
-                                        <button onClick={generate} className="bg-slate-900 text-white rounded-2xl font-black active:scale-95 transition-all">
-                                            VORSCHAU
-                                        </button>
+                                    <div className="flex gap-2">
+                                        <div className="flex-1">
+                                            <label className="text-[9px] font-bold text-slate-400 uppercase ml-2">Eintritt</label>
+                                            <select value={data.startDate} onChange={e => setData({...data, startDate: e.target.value})} className="w-full p-3 bg-slate-100 rounded-xl outline-none font-bold text-sm mt-1">
+                                                <option value="01.09.2026">Sept. 2026</option>
+                                                <option value="01.10.2026">Okt. 2026</option>
+                                            </select>
+                                        </div>
+                                        <div className="flex-1 flex items-end">
+                                            <button onClick={generate} className="w-full h-[46px] bg-slate-900 text-white rounded-xl font-black shadow-lg active:scale-95 transition-all text-xs uppercase tracking-widest">Vorschau</button>
+                                        </div>
                                     </div>
-
-                                    <textarea placeholder="Was reizt dich an der Firma?" value={data.motivation} onChange={e => setData({...data, motivation: e.target.value})} className="w-full p-4 bg-slate-50 rounded-2xl outline-none text-sm h-24" />
+                                    
+                                    <textarea placeholder="Was reizt dich an der Firma?" value={data.motivation} onChange={e => setData({...data, motivation: e.target.value})} className="w-full p-3 bg-slate-50 rounded-xl outline-none text-sm h-20 shadow-inner" />
                                 </div>
                             </div>
                         </div>
 
-                        {/* PREVIEW BEREICH */}
+                        {/* RIGHT: PREVIEW */}
                         <div className="lg:col-span-7">
-                            <div className="bg-white p-8 md:p-12 shadow-2xl rounded-[2.5rem] min-h-[700px] flex flex-col border border-slate-50 relative overflow-hidden">
+                            <div className="bg-white p-8 md:p-14 shadow-2xl rounded-[3rem] min-h-[700px] border border-slate-50 flex flex-col relative overflow-hidden">
                                 {output ? (
-                                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 flex-1 flex flex-col">
-                                        <div className="flex justify-between items-start mb-8">
-                                            <div className="space-y-1">
-                                                <p className="text-2xl font-black text-slate-900 tracking-tight">{myInfo.name}</p>
-                                                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest italic">Anschreiben für E-Mail</p>
+                                    <div className="animate-in fade-in duration-500 flex-1 flex flex-col">
+                                        <div className="flex justify-between items-start mb-8 pb-6 border-b border-slate-100">
+                                            <div className="text-[10pt] leading-tight space-y-1">
+                                                <p className="font-black text-slate-900 text-lg uppercase tracking-tight">{myInfo.name}</p>
+                                                <p className="text-slate-400 font-medium">{myInfo.address} | {myInfo.city}</p>
+                                                <p className="text-indigo-600 font-bold">{data.email}</p>
                                             </div>
-                                            {image && (
-                                                <div className="w-24 h-24 rounded-2xl overflow-hidden shadow-lg border-4 border-white -rotate-3">
-                                                    <img src={image} className="w-full h-full object-cover" />
-                                                </div>
-                                            )}
+                                            {image && <div className="w-20 h-24 rounded-xl overflow-hidden shadow-lg border-2 border-white -rotate-2"><img src={image} className="w-full h-full object-cover" /></div>}
                                         </div>
 
-                                        <div className="mb-8 p-6 bg-slate-50 rounded-3xl border border-slate-100 text-indigo-600">
-                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 opacity-60">E-Mail Betreff:</p>
-                                            <p className="font-bold">{output.subject}</p>
-                                        </div>
-
-                                        <div className="text-[11.5pt] leading-[1.8] text-slate-700 whitespace-pre-line font-serif italic flex-1 border-l-2 border-slate-100 pl-6 mb-10">
-                                            {output.body}
+                                        <div className="text-[11pt] text-slate-700 whitespace-pre-line font-serif italic flex-1 mb-8 leading-relaxed">
+                                            {output.cleanBody}
                                         </div>
 
                                         <button onClick={openMailApp} className="w-full bg-indigo-600 text-white py-6 rounded-3xl font-black text-xl shadow-xl shadow-indigo-100 flex items-center justify-center gap-3 active:scale-95 transition-all">
                                             <span>🚀</span> JETZT MAIL SENDEN
                                         </button>
+                                        <p className="text-[9px] text-center text-slate-300 mt-4 uppercase font-bold tracking-[0.2em]">Ready for 2026 🚀</p>
                                     </div>
                                 ) : (
-                                    <div className="flex flex-col items-center justify-center h-full text-slate-200 py-40">
-                                        <div className="text-7xl mb-6 opacity-50">✍️</div>
-                                        <p className="font-bold text-slate-300 tracking-wide uppercase text-sm text-center">Firma eingeben & Vorschau klicken</p>
+                                    <div className="flex flex-col items-center justify-center h-full text-slate-200 py-32 text-center px-10">
+                                        <p className="text-2xl mb-4 italic font-serif">"Wer aufhört, besser zu werden, hat aufgehört, gut zu sein."</p>
+                                        <p className="font-bold text-slate-300 tracking-widest uppercase text-[10px]">Starte deine Zukunft jetzt</p>
                                     </div>
                                 )}
                             </div>
