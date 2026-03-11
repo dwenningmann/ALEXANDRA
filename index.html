@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alexandra | Mail-Apply Pro 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        input, select, textarea { font-size: 16px !important; }
+        .custom-shadow { box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        .photo-area { transition: all 0.3s ease; }
+        .photo-area:active { transform: scale(0.98); }
+    </style>
+</head>
+<body class="bg-[#f4f7fa] min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useRef } = React;
+
+        function App() {
+            const [data, setData] = useState({
+                company: '', 
+                studyProgram: 'BWL - Dienstleistungsmanagement', 
+                salutation: 'Frau', 
+                recruiterName: '',
+                recruiterEmail: '',
+                motivation: '', 
+                startDate: '01.09.2026',
+                email: 'alexandra.orfanidou@icloud.com',
+                phone: '0176 12345678'
+            });
+            const [image, setImage] = useState(null);
+            const [output, setOutput] = useState(null);
+            const fileInputRef = useRef(null);
+
+            const myInfo = { 
+                name: "Alexandra Orfanidou", 
+                address: "Langobardenstraße 2", 
+                city: "70435 Stuttgart" 
+            };
+
+            const handleImageUpload = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => setImage(reader.result);
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            const generate = () => {
+                const date = new Date().toLocaleDateString('de-DE');
+                let greeting = data.recruiterName.trim() !== "" 
+                    ? (data.salutation === 'Frau' ? `Sehr geehrte Frau ${data.recruiterName},` : `Sehr geehrter Herr ${data.recruiterName},`)
+                    : "Sehr geehrte Damen und Herren,";
+
+                const intro = `ich verfolge die Entwicklung von ${data.company || 'Ihrem Unternehmen'} schon seit einer Weile mit großem Interesse. Da ich nach meinem aktuellen Weg eine neue, akademische Herausforderung suche, bei der ich Theorie und Praxis direkt miteinander verbinden kann, bewerbe ich mich bei Ihnen für ein Duales Studium im Bereich ${data.studyProgram} zum ${data.startDate}.`;
+
+                const changeReason = `Momentan absolviere ich meine Ausbildung zur Handelsfachwirtin. Dabei habe ich gemerkt, wie viel Spaß mir die betriebswirtschaftliche Arbeit macht – aber auch, dass ich noch tiefer in die Hintergründe eintauchen möchte. Der Wechsel in ein Studium ist für mich der nächste logische Schritt, um meine praktischen Erfahrungen aus dem Handel mit wissenschaftlichem Know-how zu untermauern. Ich bin bereit, Vollgas zu geben und mein Wissen direkt in Ihr Team einzubringen.`;
+
+                const qualities = `Durch meine bisherige Ausbildung bin ich es gewohnt, Verantwortung zu übernehmen und eigenständig zu arbeiten. Ich lerne extrem schnell, bin absolut zuverlässig und habe keine Angst davor, anzupacken. Die Doppelbelastung eines dualen Studiums sehe ich als Chance, mich persönlich und beruflich auf ein neues Level zu heben.`;
+
+                const closing = `Ich freue mich riesig über die Gelegenheit, Sie in einem persönlichen Gespräch von mir zu überzeugen.`;
+
+                setOutput({
+                    header: `${myInfo.name}\n${myInfo.address} | ${myInfo.city}\n${data.email} | ${data.phone}`,
+                    subject: `Bewerbung für ein Duales Studium: ${data.studyProgram} - ${myInfo.name}`,
+                    body: `${greeting}\n\n${intro}\n\n${changeReason}\n\n${qualities}\n\n${data.motivation ? 'Besonders spannend finde ich an ' + data.company + ', dass ' + data.motivation + '.\n\n' : ''}${closing}\n\nMit freundlichen Grüßen\n\n${myInfo.name}`
+                });
+            };
+
+            const openMailApp = () => {
+                if (!output) return;
+                const mailtoLink = `mailto:${data.recruiterEmail}?subject=${encodeURIComponent(output.subject)}&body=${encodeURIComponent(output.body)}`;
+                window.location.href = mailtoLink;
+            };
+
+            return (
+                <div className="max-w-[1400px] mx-auto p-4 lg:p-8">
+                    <div className="grid lg:grid-cols-12 gap-8">
+                        
+                        {/* INPUT BEREICH */}
+                        <div className="lg:col-span-5 space-y-6">
+                            <div className="bg-white p-8 rounded-[2.5rem] custom-shadow border border-slate-100">
+                                <h1 className="text-3xl font-black text-slate-900 mb-8 tracking-tight text-center lg:text-left">
+                                    Next<span className="text-indigo-600">Step</span> Mailer
+                                </h1>
+                                
+                                <div className="space-y-5">
+                                    {/* PHOTO UPLOAD BOX */}
+                                    <div 
+                                        onClick={() => fileInputRef.current.click()}
+                                        className="photo-area h-44 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden relative group hover:border-indigo-400 transition-colors"
+                                    >
+                                        {image ? (
+                                            <img src={image} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <div className="text-center">
+                                                <div className="text-4xl mb-2">📸</div>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Foto auswählen</p>
+                                            </div>
+                                        )}
+                                        <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
+                                    </div>
+
+                                    <div className="grid gap-4">
+                                        <input placeholder="Firma" value={data.company} onChange={e => setData({...data, company: e.target.value})} className="w-full p-4 bg-slate-50 rounded-2xl outline-none font-bold" />
+                                        <input placeholder="E-Mail der Firma" value={data.recruiterEmail} onChange={e => setData({...data, recruiterEmail: e.target.value})} className="w-full p-4 bg-indigo-50/50 rounded-2xl outline-none text-indigo-600 font-medium placeholder:text-indigo-300" />
+                                        <input placeholder="Studiengang" value={data.studyProgram} onChange={e => setData({...data, studyProgram: e.target.value})} className="w-full p-4 bg-slate-50 rounded-2xl outline-none" />
+                                    </div>
+
+                                    <div className="flex gap-2">
+                                        <select value={data.salutation} onChange={e => setData({...data, salutation: e.target.value})} className="p-4 bg-slate-100 rounded-2xl outline-none font-bold">
+                                            <option value="Frau">Frau</option>
+                                            <option value="Herr">Herr</option>
+                                        </select>
+                                        <input placeholder="Nachname Kontakt" value={data.recruiterName} onChange={e => setData({...data, recruiterName: e.target.value})} className="flex-1 p-4 bg-slate-50 rounded-2xl outline-none" />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <select value={data.startDate} onChange={e => setData({...data, startDate: e.target.value})} className="p-4 bg-slate-50 rounded-2xl outline-none font-bold text-sm">
+                                            <option value="01.09.2026">Start 01.09.</option>
+                                            <option value="01.10.2026">Start 01.10.</option>
+                                        </select>
+                                        <button onClick={generate} className="bg-slate-900 text-white rounded-2xl font-black active:scale-95 transition-all">
+                                            VORSCHAU
+                                        </button>
+                                    </div>
+
+                                    <textarea placeholder="Was reizt dich an der Firma? (Optional)" value={data.motivation} onChange={e => setData({...data, motivation: e.target.value})} className="w-full p-4 bg-slate-50 rounded-2xl outline-none text-sm h-24 shadow-inner" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* PREVIEW BEREICH */}
+                        <div className="lg:col-span-7">
+                            <div className="bg-white p-8 md:p-12 shadow-2xl rounded-[2.5rem] min-h-[700px] flex flex-col border border-slate-50 relative overflow-hidden">
+                                {output ? (
+                                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 flex-1 flex flex-col">
+                                        <div className="flex justify-between items-start mb-8">
+                                            <div className="space-y-1">
+                                                <p className="text-2xl font-black text-slate-900 tracking-tight">{myInfo.name}</p>
+                                                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest italic">Anschreiben für E-Mail</p>
+                                            </div>
+                                            {image && (
+                                                <div className="w-24 h-24 rounded-2xl overflow-hidden shadow-lg border-4 border-white -rotate-3">
+                                                    <img src={image} className="w-full h-full object-cover" />
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="mb-8 p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                                            <p className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em] mb-2">E-Mail Betreff:</p>
+                                            <p className="font-bold text-slate-800">{output.subject}</p>
+                                        </div>
+
+                                        <div className="text-[11.5pt] leading-[1.8] text-slate-700 whitespace-pre-line font-serif italic flex-1 border-l-2 border-slate-100 pl-6 mb-10">
+                                            {output.body}
+                                        </div>
+
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-2 text-emerald-500 font-bold text-[10px] uppercase tracking-widest px-4">
+                                                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                                                Bereit zum Versand
+                                            </div>
+                                            <button 
+                                                onClick={openMailApp} 
+                                                className="w-full bg-indigo-600 text-white py-6 rounded-3xl font-black text-xl shadow-xl shadow-indigo-200 flex items-center justify-center gap-3 active:scale-95 transition-all hover:bg-indigo-700"
+                                            >
+                                                <span>🚀</span> JETZT MAIL SENDEN
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center h-full text-slate-200 py-40">
+                                        <div className="text-7xl mb-6 opacity-50">✍️</div>
+                                        <p className="font-bold text-slate-300 tracking-wide uppercase text-sm">Fülle die Felder aus für die Vorschau</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
