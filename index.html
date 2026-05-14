@@ -34,7 +34,9 @@
                 email: 'alexandra.orfanidou@icloud.com',
                 phone: '0176 12345678'
             });
-            const [image, setImage] = useState(null);
+            
+            // Initialer Pfad zum Bild im Repo
+            const [image, setImage] = useState('alexandra.jpg');
             const [output, setOutput] = useState(null);
             const fileInputRef = useRef(null);
 
@@ -111,7 +113,18 @@
                                 
                                 <div className="space-y-4">
                                     <div onClick={() => fileInputRef.current.click()} className="h-24 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center cursor-pointer overflow-hidden transition-all hover:border-indigo-300">
-                                        {image ? <img src={image} className="w-full h-full object-cover" /> : <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Foto</p>}
+                                        {image ? (
+                                            <img 
+                                                src={image} 
+                                                className="w-full h-full object-cover" 
+                                                onError={(e) => {
+                                                    e.target.onerror = null; 
+                                                    e.target.src = 'https://via.placeholder.com/150?text=Foto+Upload';
+                                                }}
+                                            />
+                                        ) : (
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Foto</p>
+                                        )}
                                         <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
                                     </div>
 
@@ -159,7 +172,15 @@
                                                 <p className="text-slate-400 font-medium">{myInfo.address} | {myInfo.city}</p>
                                                 <p className="text-indigo-600 font-bold">{data.email}</p>
                                             </div>
-                                            {image && <div className="w-20 h-24 rounded-xl overflow-hidden shadow-lg border-2 border-white -rotate-2"><img src={image} className="w-full h-full object-cover" /></div>}
+                                            {image && (
+                                                <div className="w-20 h-24 rounded-xl overflow-hidden shadow-lg border-2 border-white -rotate-2 bg-slate-50">
+                                                    <img 
+                                                        src={image} 
+                                                        className="w-full h-full object-cover" 
+                                                        onError={(e) => {e.target.style.display='none'}}
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
 
                                         <div className="text-[11pt] text-slate-700 whitespace-pre-line font-serif italic flex-1 mb-8 leading-relaxed">
